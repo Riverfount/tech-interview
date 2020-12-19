@@ -1,0 +1,4 @@
+SECRET_KEY=YOUR_MEGA_HIPER_SUPER_TOP_SECRET_KEY
+DEBUG=False
+ALLOWED_HOSTS=
+DATABASE_URL=postgres://postgres:postgres@db:5432/postgres # this values are some examples, you need to define a better values here!

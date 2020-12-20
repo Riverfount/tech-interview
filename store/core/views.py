@@ -18,3 +18,17 @@ def level1(request):
         response = [{"Error": {"Message": "The payload is not present on the request."}}]
 
     return JsonResponse(response, safe=False)
+
+
+def level2(request):
+    try:
+        data = json.loads(request.body.decode('utf-8'))
+        if not data:
+            raise ValueError
+        response = build_carts(data['articles'], data['carts'], data['delivery_fees'])
+    except KeyError as err:
+        args = err.args
+        response = [{"Error": {"Message": f"The follow keys {args} were not present on payload."}}]
+    except ValueError:
+        response = [{"Error": {"Message": "The payload is not present on the request."}}]
+    return JsonResponse(response, safe=False)

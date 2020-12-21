@@ -51,6 +51,12 @@ def test_level1_works_properly(payload_level1, result_level1):
     assert json.loads(response.getvalue().decode('utf-8')) == result_level1
 
 
+def test_level1_raise_error_method_not_allowded():
+    expected = [{"Error": {"Message": "Method not allowed"}}]
+    response = client.get(reverse('level1'), content_type='application/json')
+    assert json.loads(response.getvalue().decode('utf-8')) == expected
+
+
 def test_leve1_returns_correct_error_message_when_payload_is_empty():
     """Checks the message error if payload was forgoten"""
     payload = {}
@@ -125,6 +131,12 @@ def test_level2_works_properly(payload_level2, result_level2):
     """Checks if the endpoint returns correctly"""
     response = client.post(reverse('level2'), json.dumps(payload_level2), content_type="application/json")
     assert json.loads(response.getvalue().decode('utf-8')) == result_level2
+
+
+def test_level2_raise_error_method_not_allowded():
+    expected = [{"Error": {"Message": "Method not allowed"}}]
+    response = client.get(reverse('level2'), content_type='application/json')
+    assert json.loads(response.getvalue().decode('utf-8')) == expected
 
 
 def test_level2_returns_correct_error_message_when_payload_is_empty():
@@ -240,6 +252,12 @@ def test_level3_works_properly(payload_level3, result_level3):
     """Checks if the endpoint returns correctly"""
     response = client.post(reverse('level3'), json.dumps(payload_level3), content_type="application/json")
     assert json.loads(response.getvalue().decode('utf-8')) == result_level3
+
+
+def test_level3_raise_error_method_not_allowded():
+    expected = [{"Error": {"Message": "Method not allowed"}}]
+    response = client.get(reverse('level3'), content_type='application/json')
+    assert json.loads(response.getvalue().decode('utf-8')) == expected
 
 
 def test_level3_returns_correct_error_message_when_payload_is_empty():

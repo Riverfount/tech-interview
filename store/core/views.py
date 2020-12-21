@@ -2,6 +2,7 @@ import json
 
 from django.http import JsonResponse
 
+from .exceptions import MethodNotAllowed
 from .rules import build_carts
 
 
@@ -11,6 +12,8 @@ def level1(request):
     price.
     """
     try:
+        if request.method != 'POST':
+            raise MethodNotAllowed('Method not allowed')
         data = json.loads(request.body.decode('utf-8'))
         if not data:
             raise ValueError
@@ -20,6 +23,8 @@ def level1(request):
         response = [{"Error": {"Message": f"The follow keys {args} were not present on payload."}}]
     except ValueError:
         response = [{"Error": {"Message": "The payload is not present on the request."}}]
+    except MethodNotAllowed as err:
+        response = [{"Error": {"Message": f"{err}"}}]
 
     return JsonResponse(response, safe=False)
 
@@ -30,6 +35,8 @@ def level2(request):
     carts with total price using the policy of delivery fees.
     """
     try:
+        if request.method != 'POST':
+            raise MethodNotAllowed('Method not allowed')
         data = json.loads(request.body.decode('utf-8'))
         if not data:
             raise ValueError
@@ -39,6 +46,8 @@ def level2(request):
         response = [{"Error": {"Message": f"The follow keys {args} were not present on payload."}}]
     except ValueError:
         response = [{"Error": {"Message": "The payload is not present on the request."}}]
+    except MethodNotAllowed as err:
+        response = [{"Error": {"Message": f"{err}"}}]
     return JsonResponse(response, safe=False)
 
 
@@ -48,6 +57,8 @@ def level3(request):
     JSON with carts with total price using the policy of delivery fees and the discounts if applicable.
     """
     try:
+        if request.method != 'POST':
+            raise MethodNotAllowed('Method not allowed')
         data = json.loads(request.body.decode('utf-8'))
         if not data:
             raise ValueError
@@ -57,4 +68,6 @@ def level3(request):
         response = [{"Error": {"Message": f"The follow keys {args} were not present on payload."}}]
     except ValueError:
         response = [{"Error": {"Message": "The payload is not present on the request."}}]
+    except MethodNotAllowed as err:
+        response = [{"Error": {"Message": f"{err}"}}]
     return JsonResponse(response, safe=False)

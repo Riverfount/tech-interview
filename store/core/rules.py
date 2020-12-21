@@ -1,7 +1,36 @@
-from typing import Dict
+"""
+This module has the functions to apply the Business Rules of the Store.
+
+The Business Rules are:
+
+    * The customer is charged the sum of the prices of each article in their cart.
+        In the function build_carts we calculate the sum of the prices of each article in their cart.
+        To do this we use the auxiliary function get_price.
+    * Cost of delivery depends on how much we charged the customer for the contents of their carts. The more the
+      customer spends, the less they are charged for shipping.
+        The delivery fee is calculated in the build_carts. Special attention to the 'if statement' of it, because the
+        last pair of information about the minimum and maximum price to give a delivery fee for free is 2000 as a
+        minimum and null as a maximum, but null it is not a number. So, we apply a float('inf') to define the maximum
+        like an infinitum. Works Good!!!
+    * Some products are discounted because of a deal we made with the supplier.
+        In addition to the function get_price, we put the optional because it is not all articles that have a discount,
+        it is simple 'for statement' to get, if applicable, the discount of the article.
+"""
 
 
 def get_price(cod: int, articles: list, discounts: list = None) -> int:
+    """
+    Returns the price of a specific article from a given list.
+
+    Parameters:
+        cod: An integer that means the article id. This parameter is mandatory.
+        article: A list of articles with all articles and their prices. This parameter is mandatory.
+        discounts: A list of discounts if applicable. This parameter is optional.
+
+    Returns:
+        price: Price of the article and if applicable with its discount.
+    """
+
     price = [p['price'] for p in articles if p['id'] == cod][0]
     type = ''
     value = 0
@@ -10,14 +39,23 @@ def get_price(cod: int, articles: list, discounts: list = None) -> int:
             if discount['article_id'] == cod:
                 value = discount['value']
                 type = discount['type']
-        price = price - value if type == 'amount' else int(price - (price * value/100))
+        price = price - value if type == 'amount' else int(price - (price * value / 100))
     return price
 
 
-# Following is the code with the Busines Rules of the Level 1
+def build_carts(articles: list, carts: list, delivery_fees: list = None, discounts: list = None) -> list:
+    """
+    Returns a list of carts with the prices of all its articles totalized.
 
+    Parameters:
+        articles: A list with all articles. This parameter is mandatory.
+        carts: A list of carts with their articles and their quantities. This parameter is mandatory.
+        delivery_fees: A list of delivery fees if applicable. This parameter is optional.
+        discounts: A list of discounts if applicable. This parameter is optional.
 
-def build_carts(articles: list, carts: list, delivery_fees: Dict = None, discounts: list = None) -> list[list]:
+    Returns:
+        carts: A list of carts with their id and total price.
+    """
     total_item = 0
     total_cart = 0
     delivery_value = 0

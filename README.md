@@ -13,6 +13,7 @@ Follow these steps to install and execute it:
 1. Create a `.env` and `project.env` with the examples in `/contrib`
 1. Build the application
 1. Up the application
+1. Run the tests stack
 1. Test the application sending to it a POST request with a payload (in the code an example of the level 1)
 
 The steps before in code:
@@ -23,6 +24,7 @@ cd tech-interview
 cp env-sample .env && cp sample-project-env project.env
 docker-compose build --no-cash
 docker-compose up -d
+docker-compose run web pytest -cov
 curl --request POST \
   --url http://localhost:8000/api/v1/level1/ \
   --header 'Content-Type: application/json' \

@@ -161,7 +161,7 @@ def test_leve2_returns_correct_error_message_when_payload_no_have_carts():
 
 
 def test_level2_returns_correct_error_message_when_payload_no_have_delivery_fees():
-    """Checks the message error if payload doesn't have the articles"""
+    """Checks the message error if payload doesn't have the delivery fees"""
     payload = {
         "articles": [{"id": 1, "name": "water", "price": 100}],
         "carts": [{"id": 1, "total": 2000}],
@@ -278,7 +278,7 @@ def test_leve3_returns_correct_error_message_when_payload_no_have_carts():
 
 
 def test_level3_returns_correct_error_message_when_payload_no_have_delivery_fees():
-    """Checks the message error if payload doesn't have the articles"""
+    """Checks the message error if payload doesn't have the delivery fees"""
     payload = {
         "articles": [{"id": 1, "name": "water", "price": 100}],
         "carts": [{"id": 1, "total": 2000}],
@@ -291,7 +291,7 @@ def test_level3_returns_correct_error_message_when_payload_no_have_delivery_fees
 
 
 def test_level3_returns_correct_error_message_when_payload_no_have_discounts():
-    """Checks the message error if payload doesn't have the articles"""
+    """Checks the message error if payload doesn't have the discounts"""
     payload = {
         "articles": [{"id": 1, "name": "water", "price": 100}],
         "carts": [{"id": 1, "total": 2000}],
